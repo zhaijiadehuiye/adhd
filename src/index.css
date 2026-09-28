@@ -1,0 +1,243 @@
+@import 'tailwindcss';
+
+/* Class-based dark mode (toggled on <html class="dark">) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ----------------------------------------------------------------
+   NeuroScope design system
+   A calm, restrained palette inspired by Linear / Arc / Apple Health.
+----------------------------------------------------------------- */
+
+:root {
+  --canvas: #f4f4f1;
+  --surface: #fdfdfc;
+  --surface-2: #eeede8;
+  --ink: #1a1c1f;
+  --muted: #575c64;
+  --subtle: #8b9098;
+  --line: #e2e2db;
+  --line-strong: #d2d2c9;
+
+  --brand: #0d8f80;
+  --brand-strong: #0a7a6d;
+  --brand-soft: rgba(13, 143, 128, 0.1);
+  --brand-ink: #0a6a60;
+
+  --adhd: #3573d8;
+  --adhd-soft: rgba(53, 115, 216, 0.12);
+  --asd: #c9822b;
+  --asd-soft: rgba(201, 130, 43, 0.12);
+  --confound: #bd6565;
+  --confound-soft: rgba(189, 101, 101, 0.12);
+  --positive: #3e9468;
+  --positive-soft: rgba(62, 148, 104, 0.12);
+
+  --shadow-card: 0 1px 2px rgba(22, 25, 32, 0.04), 0 10px 30px -16px rgba(22, 25, 32, 0.14);
+  --shadow-pop: 0 4px 12px rgba(22, 25, 32, 0.08), 0 24px 60px -20px rgba(22, 25, 32, 0.22);
+  --ring: rgba(13, 143, 128, 0.35);
+}
+
+.dark {
+  --canvas: #0c0d10;
+  --surface: #14161b;
+  --surface-2: #1c1f25;
+  --ink: #e8e9eb;
+  --muted: #9aa0a9;
+  --subtle: #6c727b;
+  --line: #252931;
+  --line-strong: #323742;
+
+  --brand: #2db9a6;
+  --brand-strong: #45ccb9;
+  --brand-soft: rgba(45, 185, 166, 0.13);
+  --brand-ink: #8fe2d4;
+
+  --adhd: #6f9ff0;
+  --adhd-soft: rgba(111, 159, 240, 0.15);
+  --asd: #e0a75b;
+  --asd-soft: rgba(224, 167, 91, 0.15);
+  --confound: #e08e8e;
+  --confound-soft: rgba(224, 142, 142, 0.15);
+  --positive: #60bb89;
+  --positive-soft: rgba(96, 187, 137, 0.15);
+
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 34px -18px rgba(0, 0, 0, 0.6);
+  --shadow-pop: 0 6px 16px rgba(0, 0, 0, 0.4), 0 28px 70px -24px rgba(0, 0, 0, 0.7);
+  --ring: rgba(45, 185, 166, 0.4);
+}
+
+@theme {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+
+  --color-brand: var(--brand);
+  --color-brand-strong: var(--brand-strong);
+  --color-brand-ink: var(--brand-ink);
+  --color-adhd: var(--adhd);
+  --color-asd: var(--asd);
+  --color-confound: var(--confound);
+  --color-positive: var(--positive);
+
+  --font-sans:
+    -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'PingFang SC',
+    'Hiragino Sans GB', 'Microsoft YaHei', 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas,
+    'Liberation Mono', monospace;
+
+  --shadow-card: var(--shadow-card);
+  --shadow-pop: var(--shadow-pop);
+
+  --animate-fade-in: fade-in 0.5s ease both;
+  --animate-rise: rise 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+/* ---------------- Base ---------------- */
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--canvas);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'tnum';
+  min-height: 100dvh;
+}
+
+::selection {
+  background: var(--brand-soft);
+  color: var(--brand-ink);
+}
+
+*:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* ---------------- Component helpers ---------------- */
+
+@layer components {
+  .card {
+    background-color: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 1.25rem;
+    box-shadow: var(--shadow-card);
+  }
+
+  .card-flat {
+    background-color: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 1.25rem;
+  }
+
+  .hairline {
+    border-color: var(--line);
+  }
+
+  .text-gradient-brand {
+    background: linear-gradient(100deg, var(--brand) 10%, var(--brand-strong) 90%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .grain-bg {
+    background-image:
+      radial-gradient(1200px 500px at 80% -10%, var(--brand-soft), transparent 60%),
+      radial-gradient(900px 420px at -10% 0%, var(--adhd-soft), transparent 55%);
+  }
+}
+
+/* Slim range slider */
+input[type='range'].ns-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+}
+input[type='range'].ns-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 2px solid var(--brand);
+  box-shadow: var(--shadow-card);
+  cursor: pointer;
+}
+input[type='range'].ns-range::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 2px solid var(--brand);
+  cursor: pointer;
+}
+
+/* Hide scrollbar utility for chip rows */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ---------------- Print (professional report) ---------------- */
+
+@media print {
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-area {
+    box-shadow: none !important;
+    border: none !important;
+  }
+  /* When the report modal is open, print only the report. */
+  body.reporting-print * {
+    visibility: hidden !important;
+  }
+  body.reporting-print #print-root,
+  body.reporting-print #print-root * {
+    visibility: visible !important;
+  }
+  body.reporting-print #print-root {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    padding: 0 8mm;
+  }
+  @page {
+    margin: 16mm 14mm;
+  }
+}
